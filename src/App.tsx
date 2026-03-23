@@ -43,7 +43,6 @@ function App() {
         elapsedMinutes={elapsedMinutes}
         elapsedLunchMinutes={elapsedLunchMinutes}
         lunchDuration={lunchDuration}
-        phase={phase}
       />
     </div>
   );

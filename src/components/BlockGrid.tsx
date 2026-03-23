@@ -1,11 +1,8 @@
 import { useMemo } from "react";
 import {
   type WorkSchedule,
-  type WorkPhase,
   getTimeForMinuteIndex,
-  getBlockPhase,
   getTotalWorkMinutes,
-  getLunchDuration,
   timeToMinutes,
 } from "../utils/timeUtils";
 import "./BlockGrid.css";
@@ -15,7 +12,6 @@ interface BlockGridProps {
   elapsedMinutes: number;
   elapsedLunchMinutes: number;
   lunchDuration: number;
-  phase: WorkPhase;
 }
 
 interface RowData {
@@ -29,7 +25,6 @@ export function BlockGrid({
   elapsedMinutes,
   elapsedLunchMinutes,
   lunchDuration,
-  phase,
 }: BlockGridProps) {
   const totalMinutes = getTotalWorkMinutes(schedule);
   const morningDuration =
