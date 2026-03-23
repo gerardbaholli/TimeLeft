@@ -1,0 +1,33 @@
+:root {
+  --font-family: "Roboto Mono", monospace;
+  --bg: #121212;
+  --surface: #1a1a1a;
+  --border: #2a2a2a;
+  --text: #999;
+  --text-strong: #ccc;
+  --accent: #e0e0e0;
+  --elapsed: #555;
+  --lunch: #8a7a5a;
+  --lunch-dim: rgba(138, 122, 90, 0.15);
+  --radius: 6px;
+  --radius-sm: 3px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}

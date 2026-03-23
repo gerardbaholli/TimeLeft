@@ -1,0 +1,80 @@
+.settings {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 10;
+}
+
+.settings-toggle {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--font-family);
+  font-size: 1.2rem;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s;
+}
+
+.settings-toggle:hover {
+  border-color: var(--text);
+}
+
+.settings-panel {
+  margin-top: 0.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  min-width: 300px;
+}
+
+.settings-panel h3 {
+  margin: 0 0 1rem;
+  font-family: var(--font-family);
+  font-size: 0.75rem;
+  color: var(--text);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+}
+
+.settings-row label {
+  font-family: var(--font-family);
+  width: 90px;
+  font-size: 0.85rem;
+  color: var(--text);
+  font-weight: 300;
+}
+
+.settings-row input[type="text"] {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text-strong);
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.6rem;
+  font-size: 0.85rem;
+  font-family: var(--font-family);
+  width: 65px;
+  text-align: center;
+}
+
+.settings-row input[type="text"]::placeholder {
+  color: var(--border);
+}
+
+.settings-row span {
+  color: var(--border);
+}
