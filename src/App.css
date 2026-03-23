@@ -9,6 +9,35 @@
   margin: 0 auto;
 }
 
+.app-toolbar {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.toolbar-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--font-family);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color 0.2s;
+  white-space: nowrap;
+}
+
+.toolbar-btn:hover {
+  border-color: var(--text);
+}
+
 .app-header h1 {
   font-family: var(--font-family);
   font-size: 1.4rem;

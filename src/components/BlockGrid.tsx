@@ -10,27 +10,26 @@ import "./BlockGrid.css";
 interface BlockGridProps {
   schedule: WorkSchedule;
   elapsedMinutes: number;
-  elapsedLunchMinutes: number;
-  lunchDuration: number;
+  isFullscreen: boolean;
 }
 
 interface RowData {
-  type: "work" | "lunch";
   label: string;
+  endLabel: string;
   minutes: { index: number; time: string; isElapsed: boolean; hue: number }[];
 }
 
 export function BlockGrid({
   schedule,
   elapsedMinutes,
-  elapsedLunchMinutes,
-  lunchDuration,
+  isFullscreen,
 }: BlockGridProps) {
   const totalMinutes = getTotalWorkMinutes(schedule);
   const morningDuration =
     timeToMinutes(schedule.morning.end) - timeToMinutes(schedule.morning.start);
   const afternoonDuration =
-    timeToMinutes(schedule.afternoon.end) - timeToMinutes(schedule.afternoon.start);
+    timeToMinutes(schedule.afternoon.end) -
+    timeToMinutes(schedule.afternoon.start);
 
   const rows = useMemo(() => {
     const result: RowData[] = [];
@@ -52,32 +51,13 @@ export function BlockGrid({
         });
       }
 
+      const endH = h + 1;
       result.push({
-        type: "work",
         label: `${h.toString().padStart(2, "0")}:00`,
+        endLabel: `${endH.toString().padStart(2, "0")}:00`,
         minutes,
       });
     }
-
-    // Lunch row
-    const lunchStart = timeToMinutes(schedule.morning.end);
-    const lunchMinutes: RowData["minutes"] = [];
-    for (let i = 0; i < lunchDuration; i++) {
-      const absMin = lunchStart + i;
-      const hh = Math.floor(absMin / 60);
-      const mm = absMin % 60;
-      lunchMinutes.push({
-        index: i,
-        time: `${hh.toString().padStart(2, "0")}:${mm.toString().padStart(2, "0")}`,
-        isElapsed: i < elapsedLunchMinutes,
-        hue: 45, // golden hue for lunch
-      });
-    }
-    result.push({
-      type: "lunch",
-      label: `${Math.floor(lunchStart / 60).toString().padStart(2, "0")}:00`,
-      minutes: lunchMinutes,
-    });
 
     // Afternoon rows (60 blocks each)
     for (let row = 0; row < Math.ceil(afternoonDuration / 60); row++) {
@@ -98,9 +78,10 @@ export function BlockGrid({
         });
       }
 
+      const endH = h + 1;
       result.push({
-        type: "work",
         label: `${h.toString().padStart(2, "0")}:00`,
+        endLabel: `${endH.toString().padStart(2, "0")}:00`,
         minutes,
       });
     }
@@ -112,30 +93,46 @@ export function BlockGrid({
     afternoonDuration,
     totalMinutes,
     elapsedMinutes,
-    elapsedLunchMinutes,
-    lunchDuration,
   ]);
 
+  const morningRowCount = Math.ceil(morningDuration / 60);
+
   return (
-    <div className="block-grid">
+    <div
+      className={`block-grid ${isFullscreen ? "block-grid-fullscreen" : ""}`}
+    >
       {rows.map((row, rowIdx) => (
-        <div key={rowIdx} className={`block-row ${row.type === "lunch" ? "block-row-lunch" : ""}`}>
-          <span className="block-row-label">{row.label}</span>
-          <div className="block-row-blocks">
-            {row.minutes.map((block, i) => (
-              <div
-                key={i}
-                className={`block ${block.isElapsed ? "block-elapsed" : "block-active"} ${row.type === "lunch" ? "block-lunch" : ""}`}
-                style={
-                  block.isElapsed
-                    ? ({ "--block-hue": `${block.hue}` } as React.CSSProperties)
-                    : undefined
-                }
-                title={block.time}
-              />
-            ))}
+        <>
+          {rowIdx === morningRowCount && (
+            <div key="lunch" className="lunch-separator">
+              <span className="lunch-separator-text">pausa pranzo</span>
+            </div>
+          )}
+          <div key={rowIdx} className="block-row">
+            <span className="block-row-label block-row-label-left">
+              {row.label}
+            </span>
+            <div className="block-row-blocks">
+              {row.minutes.map((block, i) => (
+                <div
+                  key={i}
+                  className={`block ${block.isElapsed ? "block-elapsed" : "block-active"}`}
+                  style={
+                    block.isElapsed
+                      ? ({
+                          "--block-hue": `${block.hue}`,
+                        } as React.CSSProperties)
+                      : undefined
+                  }
+                  title={block.time}
+                />
+              ))}
+            </div>
+            <span className="block-row-label block-row-label-right">
+              {row.endLabel}
+            </span>
           </div>
-        </div>
+        </>
       ))}
     </div>
   );

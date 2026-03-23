@@ -1,31 +1,11 @@
 .settings {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  z-index: 10;
-}
-
-.settings-toggle {
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--text);
-  font-family: var(--font-family);
-  font-size: 1.2rem;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: border-color 0.2s;
-}
-
-.settings-toggle:hover {
-  border-color: var(--text);
+  position: relative;
 }
 
 .settings-panel {
+  position: absolute;
+  top: 100%;
+  right: 0;
   margin-top: 0.5rem;
   background: var(--surface);
   border: 1px solid var(--border);
