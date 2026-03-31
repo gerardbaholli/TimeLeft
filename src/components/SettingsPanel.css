@@ -1,5 +1,32 @@
 .settings {
-  position: relative;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1001;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+body:hover .settings,
+.settings--open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.settings-icon-btn {
+  background: transparent;
+  border: none;
+  padding: 0.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.settings-icon-btn:hover {
+  opacity: 1;
 }
 
 .settings-panel {

@@ -10,7 +10,7 @@ import "./BlockGrid.css";
 interface BlockGridProps {
   schedule: WorkSchedule;
   elapsedMinutes: number;
-  isFullscreen: boolean;
+  currentSeconds: number;
 }
 
 interface RowData {
@@ -19,11 +19,7 @@ interface RowData {
   minutes: { index: number; time: string; isElapsed: boolean; hue: number }[];
 }
 
-export function BlockGrid({
-  schedule,
-  elapsedMinutes,
-  isFullscreen,
-}: BlockGridProps) {
+export function BlockGrid({ schedule, elapsedMinutes, currentSeconds }: BlockGridProps) {
   const totalMinutes = getTotalWorkMinutes(schedule);
   const morningDuration =
     timeToMinutes(schedule.morning.end) - timeToMinutes(schedule.morning.start);
@@ -98,9 +94,7 @@ export function BlockGrid({
   const morningRowCount = Math.ceil(morningDuration / 60);
 
   return (
-    <div
-      className={`block-grid ${isFullscreen ? "block-grid-fullscreen" : ""}`}
-    >
+    <div className="block-grid">
       {rows.map((row, rowIdx) => (
         <>
           {rowIdx === morningRowCount && (
@@ -116,11 +110,13 @@ export function BlockGrid({
               {row.minutes.map((block, i) => (
                 <div
                   key={i}
-                  className={`block ${block.isElapsed ? "block-elapsed" : "block-active"}`}
+                  className={`block ${block.isElapsed ? "block-elapsed" : block.index === elapsedMinutes ? "block-current" : "block-active"}`}
                   style={
                     block.isElapsed
+                      ? ({ "--block-hue": `${block.hue}` } as React.CSSProperties)
+                      : block.index === elapsedMinutes
                       ? ({
-                          "--block-hue": `${block.hue}`,
+                          "--fill": `${(currentSeconds / 60) * 100}%`,
                         } as React.CSSProperties)
                       : undefined
                   }

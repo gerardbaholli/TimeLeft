@@ -25,6 +25,7 @@ export interface WorkTimeState {
   minutesUntilEnd: number;
   elapsedLunchMinutes: number;
   lunchDuration: number;
+  currentSeconds: number;
   updateSchedule: (schedule: WorkSchedule) => void;
 }
 
@@ -64,6 +65,7 @@ export function useWorkTime(): WorkTimeState {
     minutesUntilEnd,
     elapsedLunchMinutes,
     lunchDuration,
+    currentSeconds: now.getSeconds(),
     updateSchedule,
   };
 }

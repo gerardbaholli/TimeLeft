@@ -1,17 +1,20 @@
 .block-grid {
-  position: relative;
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 2rem 1rem;
-  max-width: 1080px;
-  width: 100%;
-  margin: 0 auto;
+  padding: 2rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  z-index: 0;
 }
 
 .block-row {
+  flex: 1;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   gap: 12px;
 }
 
@@ -23,14 +26,16 @@
   flex-shrink: 0;
   font-variant-numeric: tabular-nums;
   font-weight: 300;
+  display: flex;
+  align-items: center;
 }
 
 .block-row-label-left {
-  text-align: right;
+  justify-content: flex-end;
 }
 
 .block-row-label-right {
-  text-align: left;
+  justify-content: flex-start;
 }
 
 .block-row-blocks {
@@ -41,12 +46,9 @@
 }
 
 .block {
-  aspect-ratio: auto;
-  height: 32px;
   border-radius: 1px;
   transition: background-color 0.4s ease;
   cursor: default;
-  position: relative;
 }
 
 /* Blocchi rimanenti (vuoti) */
@@ -59,18 +61,23 @@
   background-color: var(--elapsed);
 }
 
-.block:hover {
-  opacity: 0.7;
-  z-index: 1;
+/* Blocco corrente: si riempie dal basso verso l'alto secondo per secondo */
+.block-current {
+  background: linear-gradient(
+    to top,
+    var(--elapsed) var(--fill, 0%),
+    var(--border) var(--fill, 0%)
+  );
 }
+
 
 /* Lunch separator */
 .lunch-separator {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: 8px 0;
-  padding: 10px 0;
+  flex-shrink: 0;
+  padding: 6px 0;
   border-top: 1px dashed rgba(180, 60, 60, 0.4);
   border-bottom: 1px dashed rgba(180, 60, 60, 0.4);
 }
@@ -85,29 +92,9 @@
   background: rgba(180, 60, 60, 0.1);
   border: 1px dashed rgba(180, 60, 60, 0.3);
   border-radius: var(--radius-sm);
-  padding: 6px 0;
+  padding: 4px 0;
   text-align: center;
   width: 100%;
-}
-
-/* Fullscreen mode */
-.block-grid-fullscreen {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  background: var(--bg);
-  max-width: none;
-  padding: 2rem;
-  justify-content: center;
-  overflow: auto;
-}
-
-.block-grid-fullscreen .block-row-blocks {
-  gap: 4px;
-}
-
-.block-grid-fullscreen .block {
-  height: 48px;
 }
 
 /* Mobile */

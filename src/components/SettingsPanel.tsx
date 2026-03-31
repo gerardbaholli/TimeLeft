@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { type WorkSchedule } from "../utils/timeUtils";
+import settingsIcon from "/settings_24dp_646464_FILL0_wght400_GRAD0_opsz24.svg";
 import "./SettingsPanel.css";
 
 interface SettingsPanelProps {
@@ -29,12 +30,17 @@ export function SettingsPanel({ schedule, onUpdate }: SettingsPanelProps) {
   };
 
   return (
-    <div className="settings">
+    <div className={`settings${open ? " settings--open" : ""}`}>
       <button
-        className="toolbar-btn"
+        className="settings-icon-btn"
         onClick={() => setOpen(!open)}
       >
-        {open ? "close" : "change work time"}
+        <img
+          src={settingsIcon}
+          alt="settings"
+          width={24}
+          height={24}
+        />
       </button>
       {open && (
         <div className="settings-panel">
