@@ -4,11 +4,11 @@ import { SettingsPanel } from "./components/SettingsPanel";
 import "./App.css";
 
 function App() {
-  const { schedule, elapsedMinutes, currentSeconds, updateSchedule } = useWorkTime();
+  const { schedule, elapsedMinutes, remainingMinutes, currentSeconds, updateSchedule } = useWorkTime();
 
   return (
     <div className="app">
-      <BlockGrid schedule={schedule} elapsedMinutes={elapsedMinutes} currentSeconds={currentSeconds} />
+      <BlockGrid schedule={schedule} elapsedMinutes={elapsedMinutes} remainingMinutes={remainingMinutes} currentSeconds={currentSeconds} />
       <SettingsPanel schedule={schedule} onUpdate={updateSchedule} />
     </div>
   );

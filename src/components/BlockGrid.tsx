@@ -10,6 +10,7 @@ import "./BlockGrid.css";
 interface BlockGridProps {
   schedule: WorkSchedule;
   elapsedMinutes: number;
+  remainingMinutes: number;
   currentSeconds: number;
 }
 
@@ -19,7 +20,7 @@ interface RowData {
   minutes: { index: number; time: string; isElapsed: boolean; hue: number }[];
 }
 
-export function BlockGrid({ schedule, elapsedMinutes, currentSeconds }: BlockGridProps) {
+export function BlockGrid({ schedule, elapsedMinutes, remainingMinutes, currentSeconds }: BlockGridProps) {
   const totalMinutes = getTotalWorkMinutes(schedule);
   const morningDuration =
     timeToMinutes(schedule.morning.end) - timeToMinutes(schedule.morning.start);
@@ -99,7 +100,9 @@ export function BlockGrid({ schedule, elapsedMinutes, currentSeconds }: BlockGri
         <>
           {rowIdx === morningRowCount && (
             <div key="lunch" className="lunch-separator">
-              <span className="lunch-separator-text">pausa pranzo</span>
+              <span className="lunch-separator-text">
+                {Math.floor(remainingMinutes / 60)}h {remainingMinutes % 60}m rimanenti
+              </span>
             </div>
           )}
           <div key={rowIdx} className="block-row">
