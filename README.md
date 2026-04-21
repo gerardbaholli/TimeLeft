@@ -1,4 +1,4 @@
-# TimeLeft
+# Quitt
 
 A minimal workday countdown app that visualizes your remaining work time as a grid of blocks — one block per minute.
 
@@ -43,4 +43,4 @@ Deploys to GitHub Pages via `gh-pages`.
 
 ## Live
 
-[gerardbaholli.github.io/TimeLeft](https://gerardbaholli.github.io/TimeLeft/)
+[gerardbaholli.github.io/Quitt](https://gerardbaholli.github.io/Quitt/)
